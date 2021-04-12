@@ -1,0 +1,34 @@
+
+
+GET ALL MOVIES
+======================================================================
+curl http://127.0.0.1:5000/api/v1/movies #get all movies
+
+GET SINGLE MOVIE
+======================================================================
+curl 'http://127.0.0.1:5000/api/v1/movies/2'
+
+CREATE A NEW MOVIE
+======================================================================
+curl -H "Content-Type:application/json" -X POST -d '{
+        "description": "mlcmlodaflamclxzmcopd",
+        "director": "edna",
+        "release_date": "16/09/20202",
+        "title": "ee",
+        "language": "english"
+    }' http://127.0.0.1:5000/api/v1/movies  
+
+DELETE A MOVIE BY ID
+======================================================================
+curl -X DELETE 'http://127.0.0.1:5000/api/v1/movies/1'
+
+UPDATE A MOVIE BY ID
+======================================================================
+curl --X PUT 'http://127.0.0.1:5000/api/v1/movies/1' -H'Content-Type: application/json' -d'{
+    "description": "mlcmlodaflamclxzmcopd",
+    "director": "edna",
+    "release_date": "16/09/20202",
+    "title": "ijkmclkcdiojfwmlacmx;lcpowjfpweojf",
+    "language": "english"
+}' 
+
