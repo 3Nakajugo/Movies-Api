@@ -1,5 +1,6 @@
 from datetime import date
 
+
 movies = [
     {
         "id": 1,
@@ -13,6 +14,9 @@ movies = [
 
 
 class Movie:
+    """
+    Model for movie
+    """
     def __init__(self, title, description, release_date, language, director):
         self.id = len(movies)+1
         self.title = title
@@ -22,6 +26,9 @@ class Movie:
         self.director = director
 
     def to_json(self):
+        """
+         returns dict object of movie
+        """
         return {
             "id": self.id,
             "title": self.title,

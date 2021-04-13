@@ -1,10 +1,11 @@
 from App import app
-from flask import request, jsonify
+from flask import request, jsonify, abort
 from .movie_model import movies, Movie
 
 
 @app.route("/api/v1/movies", methods=['GET'])
 def get_all_movies():
+    """ Get all movies """
     if len(movies) > 0:
         all_movies = jsonify(movies)
         return all_movies, 200
@@ -13,6 +14,7 @@ def get_all_movies():
 
 @app.route("/api/v1/movies/<int:id>", methods=['GET'])
 def get_movie_by_id(id):
+    """ Get single movie by ID """
     for movie in movies:
         if movie['id'] == id:
             return jsonify(movie), 200
@@ -21,6 +23,7 @@ def get_movie_by_id(id):
 
 @app.route("/api/v1/movies", methods=['POST'])
 def create_movie():
+    """ Create  a movie """
     request_data = request.get_json()
     title = request_data['title']
     description = request_data['description']
@@ -59,4 +62,15 @@ def update_movie_by_id(id):
             movie.update(title=title, description=description, release_date=release_date,
                          language=language, director=director)
             return jsonify({"message": " movie updated successfully", "all_movies": movie}), 200
-        return jsonify({'error': 'not found'}), 404
+        abort(404)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    """
+    error handler for 404
+    """
+    return jsonify({
+        "error": 404,
+        "message": "resource not found"
+    }), 404
