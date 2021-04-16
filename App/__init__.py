@@ -2,5 +2,5 @@ from flask import Flask
 
 
 app = Flask(__name__)
-from App import movie_view
+from App.movie import movie_view
 

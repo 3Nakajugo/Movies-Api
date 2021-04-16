@@ -1,7 +1,7 @@
 import unittest
 import json
 from App import app
-from App.movie_model import Movie, movies
+from App.movie.movie_model import Movie, movies
 
 
 class TestMovieApi(unittest.TestCase):
@@ -42,9 +42,22 @@ class TestMovieApi(unittest.TestCase):
         response = self.client.post(
             "/api/v1/movies", content_type='application/json',  data=json.dumps(self.new_movie))
         response_data = json.loads(response.data)
-        print(response.data)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response_data["message"], "movie created successful")
+
+    def test_update_movie(self):
+        payload = {
+            "title": "Love in colours",
+            "description": "mlcmlodaflamclxzmcopd",
+            "release_date": "16/09/20202",
+            "language": "english",
+            "director": "Chenue chebe"
+        }
+        response = self.client.post(
+            "/api/v1/movies", content_type='application/json',  data=json.dumps(self.new_movie))
+        # response_data = json.loads(response.data)
+        response = self.client.put(
+            "/api/v1/movies/1", content_type='application/json',  data=json.dumps(self.new_movie))
 
 
 if __name__ == '__main__':
