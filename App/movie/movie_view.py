@@ -1,9 +1,10 @@
 from App import app
 from flask import request, jsonify, abort
 from .movie_model import movies, Movie
-
+from ..utilities.utility import  check_for_token
 
 @app.route("/api/v1/movies", methods=['GET'])
+@check_for_token
 def get_all_movies():
     """ Get all movies """
     if len(movies) > 0:
@@ -13,6 +14,7 @@ def get_all_movies():
 
 
 @app.route("/api/v1/movies/<int:id>", methods=['GET'])
+@check_for_token
 def get_movie_by_id(id):
     """ Get single movie by ID """
     for movie in movies:
@@ -22,6 +24,7 @@ def get_movie_by_id(id):
 
 
 @app.route("/api/v1/movies", methods=['POST'])
+@check_for_token
 def create_movie():
     """ Create  a movie """
     request_data = request.get_json()
@@ -40,6 +43,7 @@ def create_movie():
 
 
 @app.route("/api/v1/movies/<int:id>", methods=['DELETE'])
+@check_for_token
 def delete_movie_by_id(id):
     for movie in movies:
         if movie['id'] == id:
@@ -49,6 +53,7 @@ def delete_movie_by_id(id):
 
 
 @app.route("/api/v1/movies/<int:id>", methods=['PUT'])
+@check_for_token
 def update_movie_by_id(id):
     request_data = request.get_json()
 
